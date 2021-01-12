@@ -50,32 +50,30 @@ Run,%ComSpec% /c Taskkill -f -im autohotkey.exe,%A_ScriptDir%,Hide
 return
 
 #MaxThreadsPerHotkey 3
-^+!l::  ; Ctrl+Shift+L hotkey (change this hotkey to suit your preferences).
+^+l::
 destravar()
 #MaxThreadsPerHotkey 1
-if KeepWinZRunning  ; This means an underlying thread is already running the loop below.
+if KeepWinZRunning  
 {
-    KeepWinZRunning := false  ; Signal that thread's loop to stop.
+    KeepWinZRunning := false 
     WinClose, mainOperacoes.ahk
-	return  ; End this thread so that the one underneath will resume and see the change made by the line above.
+	return
 }
 ; Otherwise:
 KeepWinZRunning := true
 
 Loop
 {
-    if KeepWinZRunning  ; This means an underlying thread is already running the loop below.
+    if KeepWinZRunning
 	{
 		Gui, Show, x-3000 y0 w6000 h3000
 	}
-	; The next four lines are the action you want to repeat (update them to suit your preferences):
     Click
 	Sleep 100
-    ; But leave the rest below unchanged.
-    if not KeepWinZRunning  ; The user signaled the loop to stop by pressing Win-Z again.
-        break  ; Break out of this loop.
+    if not KeepWinZRunning
+        break
 }
-KeepWinZRunning := false  ; Reset in preparation for the next press of this hotkey.
+KeepWinZRunning := false
 return
 
 ^+=::
